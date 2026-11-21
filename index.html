@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>donkeycorn.co</title>
+  <meta name="description" content="donkeycorn.co — startup advisory, seed and angel investing.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="donkeycorn.co">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://donkeycorn.co/">
+  <meta property="og:image" content="https://donkeycorn.co/assets/donkeycorn.png">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --graphite: #2b2d31;
+      --orange: #ea8a52;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--graphite);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(20px, 4vh, 40px);
+    }
+    img {
+      display: block;
+      width: auto;
+      height: min(56vh, 520px);
+      max-width: 80vw;
+      object-fit: contain;
+    }
+    h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: clamp(2rem, 7vw, 3.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    h1 span { color: var(--orange); }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="assets/donkeycorn.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800">
+    <h1>donkeycorn<span>.co</span></h1>
+  </main>
+</body>
+</html>
