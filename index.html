@@ -26,11 +26,23 @@
       --orange: #ea8a52;
     }
     @media (prefers-color-scheme: dark) {
-      :root {
+      :root:not([data-theme="light"]) {
         --bg: #1b1c1f;
         --graphite: #ece8e1;
       }
+      :root:not([data-theme="light"]) .art-light { display: none; }
+      :root:not([data-theme="light"]) .art-dark { display: block; }
+      :root:not([data-theme="light"]) .icon-moon { display: none; }
+      :root:not([data-theme="light"]) .icon-sun { display: block; }
     }
+    :root[data-theme="dark"] {
+      --bg: #1b1c1f;
+      --graphite: #ece8e1;
+    }
+    :root[data-theme="dark"] .art-light { display: none; }
+    :root[data-theme="dark"] .art-dark { display: block; }
+    :root[data-theme="dark"] .icon-moon { display: none; }
+    :root[data-theme="dark"] .icon-sun { display: block; }
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
@@ -63,15 +75,64 @@
       line-height: 1;
     }
     h1 span { color: var(--orange); }
+    .art-dark, .icon-sun { display: none; }
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--graphite);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    .theme-toggle:hover, .theme-toggle:focus-visible { opacity: 1; }
+    .theme-toggle:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+    .theme-toggle svg { width: 22px; height: 22px; }
   </style>
+  <script>
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
 </head>
 <body>
+  <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
   <main>
-    <picture>
-      <source srcset="assets/donkeycorn-dark.png" media="(prefers-color-scheme: dark)">
-      <img src="assets/donkeycorn.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800">
-    </picture>
+    <img class="art-light" src="assets/donkeycorn.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800">
+    <img class="art-dark" src="assets/donkeycorn-dark.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800" loading="lazy">
     <h1>donkeycorn<span>.co</span></h1>
   </main>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      function isDark() {
+        return root.dataset.theme ? root.dataset.theme === "dark" : darkQuery.matches;
+      }
+      function syncThemeColor() {
+        var bg = getComputedStyle(root).getPropertyValue("--bg").trim();
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.content = bg; });
+      }
+      document.querySelector(".theme-toggle").addEventListener("click", function () {
+        var next = isDark() ? "light" : "dark";
+        root.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        syncThemeColor();
+      });
+      if (root.dataset.theme) syncThemeColor();
+    })();
+  </script>
 </body>
 </html>
