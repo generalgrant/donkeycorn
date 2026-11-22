@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>donkeycorn.co</title>
   <meta name="description" content="donkeycorn.co — startup advisory, seed and angel investing.">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1c1f" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="donkeycorn.co">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://donkeycorn.co/">
@@ -22,6 +24,12 @@
       --bg: #ffffff;
       --graphite: #2b2d31;
       --orange: #ea8a52;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1b1c1f;
+        --graphite: #ece8e1;
+      }
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -59,7 +67,10 @@
 </head>
 <body>
   <main>
-    <img src="assets/donkeycorn.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800">
+    <picture>
+      <source srcset="assets/donkeycorn-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="assets/donkeycorn.png" alt="A donkey with a carrot for a unicorn horn" width="480" height="800">
+    </picture>
     <h1>donkeycorn<span>.co</span></h1>
   </main>
 </body>
