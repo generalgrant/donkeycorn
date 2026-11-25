@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>donkeycorn.co</title>
   <meta name="description" content="donkeycorn.co — startup advisory, seed and angel investing.">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1b1c1f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="donkeycorn.co">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://donkeycorn.co/">
@@ -24,16 +22,6 @@
       --bg: #ffffff;
       --graphite: #2b2d31;
       --orange: #ea8a52;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #1b1c1f;
-        --graphite: #ece8e1;
-      }
-      :root:not([data-theme="light"]) .art-light { display: none; }
-      :root:not([data-theme="light"]) .art-dark { display: block; }
-      :root:not([data-theme="light"]) .icon-moon { display: none; }
-      :root:not([data-theme="light"]) .icon-sun { display: block; }
     }
     :root[data-theme="dark"] {
       --bg: #1b1c1f;
@@ -117,10 +105,7 @@
   <script>
     (function () {
       var root = document.documentElement;
-      var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      function isDark() {
-        return root.dataset.theme ? root.dataset.theme === "dark" : darkQuery.matches;
-      }
+      function isDark() { return root.dataset.theme === "dark"; }
       function syncThemeColor() {
         var bg = getComputedStyle(root).getPropertyValue("--bg").trim();
         document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.content = bg; });
